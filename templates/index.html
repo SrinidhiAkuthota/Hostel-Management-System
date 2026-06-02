@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hostel Management System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .overlay {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5); /* dark transparent layer */
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #fff;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 24px;
+            margin: 10px;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <h1>🏠 Welcome to the Hostel Management System</h1>
+        <div>
+            <a href="{{ url_for('login') }}" class="btn">Student Login</a>
+            <a href="{{ url_for('admin_login') }}" class="btn">Admin Login</a>
+            <a href="{{ url_for('register') }}" class="btn">Register</a>
+        </div>
+    </div>
+</body>
+</html>

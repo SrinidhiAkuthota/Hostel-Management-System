@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: url("https://www.yukio.in/blog/wp-content/uploads/2025/06/Difference-Between-PG-and-Hostel-Blog.jpg") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 25px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin: 10px;
+        }
+
+        .hostel-scroll {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            padding: 30px;
+            margin-top: 10px;
+        }
+
+        /* Hostel card */
+        .hostel-card {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .hostel-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .hostel-card h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .hostel-card p {
+            margin: 5px 0;
+        }
+
+        .hostel-card button {
+            background-color: #4f4caf;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .hostel-card button:hover {
+            background-color: #3d3a9b;
+        }
+
+        /* ⭐ Slider Container */
+        .slider {
+            position: relative;
+            width: 100%;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slider img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            padding: 8px;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            user-select: none;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+        }
+
+        .prev { left: 5px; }
+        .next { right: 5px; }
+    </style>
+
+    <script>
+        function showRules(hostelName) {
+            const rules = {
+                "Blue Sky Hostel": "1. No loud music after 10 PM\n2. Visitors only till 7 PM\n3. Maintain cleanliness\n4. Respect wardens and staff",
+                "Elite Residency": "1. Alcohol/Smoking prohibited\n2. Mandatory ID card at entry\n3. Laundry only on weekends\n4. Guests allowed with prior permission"
+            };
+            alert("🏠 Rules for " + hostelName + ":\n\n" + (rules[hostelName] || "Standard hostel rules apply."));
+        }
+
+        function showMenu(hostelName) {
+            const menu = {
+                "Blue Sky Hostel": "Mon: Veg Biryani\nTue: Paneer Curry\nWed: Dosa & Sambar\nThu: Rajma Chawal\nFri: Chicken Curry\nSat: Veg Pulao\nSun: Poori Bhaji",
+                "Elite Residency": "Mon: Dal Fry\nTue: Chicken Biryani\nWed: Aloo Gobi\nThu: Chapati & Curry\nFri: Egg Curry\nSat: Fried Rice\nSun: Paneer Butter Masala"
+            };
+            alert("🍴 Weekly Menu for " + hostelName + ":\n\n" + (menu[hostelName] || "Menu not available."));
+        }
+
+        /* ⭐ Slider Logic */
+        function changeSlide(btn, step) {
+            let slider = btn.parentElement;
+            let slides = slider.getElementsByClassName("slide");
+
+            let index = 0;
+            for (let i = 0; i < slides.length; i++) {
+                if (slides[i].style.display === "block") {
+                    index = i;
+                    break;
+                }
+            }
+
+            slides[index].style.display = "none";
+            index = (index + step + slides.length) % slides.length;
+            slides[index].style.display = "block";
+        }
+
+        /* ⭐ Initialize sliders */
+        window.onload = function() {
+            document.querySelectorAll(".slider").forEach(slider => {
+                let slides = slider.getElementsByClassName("slide");
+                if (slides.length > 0) slides[0].style.display = "block";
+            });
+        };
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <h1>Welcome, {{ session['username'] }}</h1>
+
+    <form method="POST">
+        <select name="location" required onchange="this.form.submit()">
+            <option value="">Select City</option>
+            {% for loc in locations %}
+                <option value="{{ loc }}" {% if selected_location == loc %}selected{% endif %}>{{ loc }}</option>
+            {% endfor %}
+        </select>
+
+        {% if places %}
+            <select name="place" required onchange="this.form.submit()">
+                <option value="">Select Place</option>
+                {% for p in places %}
+                    <option value="{{ p }}" {% if selected_place == p %}selected{% endif %}>{{ p }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+    </form>
+
+    {% if results %}
+        <h2>Available Hostels in {{ selected_place }}</h2>
+
+        <div class="hostel-scroll">
+            {% for h in results %}
+                <div class="hostel-card">
+
+                    <!-- ⭐ MULTIPLE IMAGE SLIDER -->
+                    <div class="slider">
+                        {% for img in h.images %}
+                            <img src="{{ img }}" class="slide">
+                        {% endfor %}
+
+                        <a class="prev" onclick="changeSlide(this, -1)">&#10094;</a>
+                        <a class="next" onclick="changeSlide(this, 1)">&#10095;</a>
+                    </div>
+
+                    <h3>{{ h.name }}</h3>
+                    <p><strong>Price:</strong> {{ h.price }}</p>
+                    <p><strong>Rating:</strong> ⭐ {{ h.rating }}</p>
+                    <p>{{ h.description }}</p>
+
+                    <button onclick="showRules('{{ h.name }}')">View Rules</button>
+                    <button onclick="showMenu('{{ h.name }}')">View Menu</button>
+
+                    <a href="{{ url_for('apply', location=selected_location, hostel_name=h.name) }}">
+                        <button>Apply Now</button>
+                    </a>
+
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+</body>
+</html>

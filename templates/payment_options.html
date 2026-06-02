@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Options</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Payment — Amount: ₹{{ amount }}</h1>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+        <label><input type="radio" name="payment_method" value="Cash" required> 💵 Cash on Arrival</label><br><br>
+        <label><input type="radio" name="payment_method" value="UPI" required> 📱 UPI / PhonePe / GPay</label><br><br>
+        <label><input type="radio" name="payment_method" value="Card" required> 💳 Debit/Credit Card</label><br><br>
+        <button type="submit">Proceed</button>
+    </form>
+
+    <p style="margin-top:12px;"><a href="{{ url_for('dashboard') }}">Cancel & return</a></p>
+</div>
+</body>
+</html>

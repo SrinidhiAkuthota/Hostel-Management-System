@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UPI Payment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* fake scanner/QR look */
+        .qr {
+            width: 220px;
+            height: 220px;
+            margin: 20px auto;
+            background: repeating-linear-gradient(45deg,#111 0 6px, #eee 6px 12px);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:white;
+            font-weight:bold;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+        .scanner {
+            width: 80%;
+            height: 6px;
+            background: rgba(255,255,255,0.8);
+            margin: 10px auto;
+            animation: sweep 1.5s linear infinite;
+            border-radius:3px;
+        }
+        @keyframes sweep {
+            0% {transform: translateX(-100%);}
+            100% {transform: translateX(100%);}
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Pay via UPI — ₹{{ amount }}</h1>
+
+    {% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+
+    <div class="qr">
+        QR
+    </div>
+    <div class="scanner"></div>
+
+    <p>Scan the QR with your UPI app (demo). After payment click “I have paid” or enter a transaction id.</p>
+
+    <form method="POST">
+        <input name="txn_id" placeholder="Enter transaction id (optional)">
+        <button type="submit">I have paid</button>
+    </form>
+
+    <p style="margin-top:12px;"><a href="{{ url_for('payment_options') }}">Back</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: url("https://www.yukio.in/blog/wp-content/uploads/2025/06/Difference-Between-PG-and-Hostel-Blog.jpg") no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.container {
+    background: rgba(255, 255, 255, 0.9); /* transparent white */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    width: 400px;
+    text-align: center;
+}
+
+
+h1 {
+    margin-bottom: 20px;
+}
+
+input, select, button {
+    display: block;
+    width: 90%;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #4f4caf;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #4b45a0;
+}
+
+.error {
+    color: red;
+}
+
+.card {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+}
+.tagline {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* ---------- HOSTEL LIST PAGE ---------- */
+
+.hostel-grid {
+    display: flex;
+    flex-wrap: wrap;              /* automatically goes to next row if needed */
+    justify-content: center;      /* center across full width */
+    gap: 25px;                    /* spacing between cards */
+    padding: 40px;
+}
+
+.hostel-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.hostel-card:hover {
+    transform: translateY(-6px);
+}
+
+.hostel-card h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.hostel-card p {
+    margin: 5px 0;
+    color: #444;
+}
+
+.hostel-card button {
+    background-color: #4f4caf;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.hostel-card button:hover {
+    background-color: #3d3a9b;
+}
+
+/* Optional: page heading */
+.hostel-grid-title {
+    text-align: center;
+    margin-top: 30px;
+    color: #222;
+    font-weight: 600;
+}

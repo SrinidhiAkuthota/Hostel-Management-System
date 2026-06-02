@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enter OTP</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>OTP Verification — ₹{{ amount }}</h1>
+    {% if shown_otp %}
+        <p style="color:gray">Demo OTP (for testing): <strong>{{ shown_otp }}</strong></p>
+    {% endif %}
+    {% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+    <form method="POST">
+        <input name="otp" placeholder="Enter 4-digit OTP" required>
+        <button type="submit">Verify & Confirm Payment</button>
+    </form>
+    <p style="margin-top:10px;"><a href="{{ url_for('pay_card') }}">Back</a></p>
+</div>
+</body>
+</html>

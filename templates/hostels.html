@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Available Hostels</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        .hostel-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1 class="hostel-grid-title">Available Hostels in {{ city }}</h1>
+
+    <div class="hostel-grid">
+
+        {% for h in hostels %}
+        <div class="hostel-card">
+
+            <!-- ⭐ Hostel Image Here -->
+            {% if h.image %}
+    <img src="{{ h.image }}" class="hostel-image" alt="Hostel Image">
+{% else %}
+    <img src="{{ url_for('static', filename='default_hostel.jpg') }}" 
+         class="hostel-image" 
+         alt="Default Hostel Image">
+{% endif %}
+
+
+            <h3>{{ h.name }}</h3>
+            <p><b>Price:</b> {{ h.price }}</p>
+            <p><b>Rating:</b> ⭐ {{ h.rating }}</p>
+            <p>{{ h.description }}</p>
+
+            <button>View Rules</button>
+            <button>View Menu</button>
+
+            <a href="{{ url_for('apply', city=city, hostel_name=h.name) }}">
+                <button>Apply Now</button>
+            </a>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <br><br>
+    <a href="{{ url_for('home') }}" style="color: white; font-weight: bold;">Back</a>
+
+</body>
+</html>

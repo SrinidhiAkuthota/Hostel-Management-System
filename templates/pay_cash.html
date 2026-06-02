@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cash on Arrival</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Confirm Cash Payment — ₹{{ amount }}</h1>
+    <p>You will pay the hostel in cash on arrival. Click confirm to finish the booking.</p>
+    <form method="POST">
+        <button type="submit">Confirm Cash Payment</button>
+    </form>
+    <p style="margin-top:12px;"><a href="{{ url_for('payment_options') }}">Back</a></p>
+</div>
+</body>
+</html>

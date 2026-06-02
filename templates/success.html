@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Successful</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>🎉 Booking Confirmed!</h1>
+    <p><strong>Student:</strong> {{ student }}</p>
+    <p><strong>Hostel:</strong> {{ hostel_name }}</p>
+    <p><strong>Location:</strong> {{ location }}</p>
+    <p><strong>Room No:</strong> {{ room_number }}</p>
+    <p><strong>Duration:</strong> {{ duration }} months</p>
+    <p><strong>Phone:</strong> {{ phone }}</p>
+    <p><strong>Payment Method:</strong> {{ payment_method }}</p>
+    {% if payment_details %}
+        <p><strong>Payment Details:</strong> {{ payment_details }}</p>
+    {% endif %}
+    <p><strong>Status:</strong> {{ status }}</p>
+    <br>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</div>
+</body>
+</html>

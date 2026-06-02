@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .valid {
+            color: green;
+        }
+    </style>
+    <script>
+        function validatePassword() {
+            const password = document.getElementById("password").value;
+            const message = document.getElementById("passwordMessage");
+            
+            // Regex: at least 8 chars, 1 number, 1 special char
+            const strongPassword = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
+            
+            if (!strongPassword.test(password)) {
+                message.textContent = "Password must be at least 8 characters long and include a number & special character.";
+                message.className = "error";
+                return false;
+            } else {
+                message.textContent = "Strong password ✔️";
+                message.className = "valid";
+                return true;
+            }
+        }
+
+        function checkForm(event) {
+            if (!validatePassword()) {
+                event.preventDefault(); // Stop form submission
+                alert("Please enter a stronger password.");
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <h2 class="tagline">Looking for hostels? All good deals available here!</h2>
+    <h1>Register</h1>
+    <form method="POST" onsubmit="checkForm(event)">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+
+        <input type="password" name="password" id="password" placeholder="Password" oninput="validatePassword()" required>
+        <p id="passwordMessage"></p>
+
+        <input type="password" name="confirm" placeholder="Confirm Password" required>
+
+        <!-- New fields for gender and age -->
+        <label for="gender">Gender:</label>
+        <select name="gender" id="gender" required>
+            <option value="">Select Gender</option>
+            <option value="Male">Boy</option>
+            <option value="Female">Girl</option>
+        </select>
+
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" min="12" max="100" placeholder="Enter your age" required>
+
+        <button type="submit">Register</button>
+    </form>
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+    <p>Already registered? <a href="{{ url_for('login') }}">Login</a></p>
+</div>
+</body>
+</html>

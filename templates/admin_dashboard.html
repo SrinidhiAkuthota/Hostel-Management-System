@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background: white;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .btn {
+            padding: 5px 10px;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .accept { background: green; }
+        .reject { background: red; }
+        .logout {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .logout a {
+            text-decoration: none;
+            color: white;
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .logout a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>🏠 Admin Dashboard — Hostel Applications</h2>
+
+    <h3>📊 Hostel Summary</h3>
+    <table style="width:60%;margin:auto;">
+        <tr>
+            <th>Location</th>
+            <th>Booked Rooms</th>
+            <th>Vacant Rooms</th>
+        </tr>
+        {% for location, data in summary.items() %}
+        <tr>
+            <td>{{ location }}</td>
+            <td>{{ data.booked }}</td>
+            <td>{{ data.vacant }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+
+    <table>
+        <tr>
+            <th>#</th>
+            <th>Student</th>
+            <th>Email</th>
+            <th>Hostel</th>
+            <th>Location</th>
+            <th>Room Type</th>
+            <th>Duration</th>
+            <th>Room No</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for app in applications %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ app.student }}</td>
+            <td>{{ app.email }}</td>
+            <td>{{ app.hostel_name }}</td>
+            <td>{{ app.location }}</td>
+            <td>{{ app.room_type }}</td>
+            <td>{{ app.duration }}</td>
+            <td>{{ app.room_number }}</td>
+            <td>{{ app.status }}</td>
+            <td>
+                <a href="{{ url_for('update_status', app_index=loop.index0, action='accept') }}">
+                    <button class="btn accept">Accept</button>
+                </a>
+                <a href="{{ url_for('update_status', app_index=loop.index0, action='reject') }}">
+                    <button class="btn reject">Reject</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="logout">
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Card Payment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Card Payment — ₹{{ amount }}</h1>
+    {% if error %}<p style="color:red;">{{ error }}</p>{% endif %}
+    <form method="POST">
+        <input name="card_number" placeholder="Card number (digits)" required>
+        <input name="name_on_card" placeholder="Name on card" required>
+        <input name="expiry" placeholder="MM/YY" required>
+        <input name="cvv" placeholder="CVV" required>
+        <button type="submit">Pay ₹{{ amount }}</button>
+    </form>
+    <p style="margin-top:10px;"><a href="{{ url_for('payment_options') }}">Back</a></p>
+</div>
+</body>
+</html>

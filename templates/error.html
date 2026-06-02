@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>No Rooms Available</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div style="position: absolute; top: 15px; right: 25px;">
+    {% if session.get('role') == 'admin' %}
+        <a href="{{ url_for('admin_dashboard') }}" 
+           style="background-color: #2c3e50; color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none;">
+           Admin Dashboard
+        </a>
+    {% else %}
+        <a href="{{ url_for('login') }}" 
+           style="background-color: #2c3e50; color: white; padding: 8px 15px; border-radius: 8px; text-decoration: none;">
+           Admin Login
+        </a>
+    {% endif %}
+</div>
+
+<div class="container">
+    <h1>⚠️ Sorry!</h1>
+    <p>{{ message }}</p>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</div>
+</body>
+</html>
