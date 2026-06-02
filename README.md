@@ -1,6 +1,6 @@
+# Hostel Management System
 ## 🚀 Live Demo
 👉 https://hostel-management-system-1-t0qn.onrender.com
-# Hostel Management System
 
 ## Overview
 A web-based Hostel Management System developed using Python Flask and SQLite for managing hostel registrations, student records, room allocation, and payments.
